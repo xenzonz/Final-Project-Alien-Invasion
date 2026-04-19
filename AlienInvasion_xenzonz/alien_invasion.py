@@ -39,7 +39,7 @@ class AlienInvasion:
 
         self.ship = Ship(self, Arsenal(self))
         self.alien_fleet = AlienFleet(self)
-        self.alien_fleet.create_fleet()
+        self.alien_fleet.create_fleet() #<- bug, basically causes alien fleet to have 2 lives because it generates the fleet twice
         self.game_active = True
     
     def run_game(self):

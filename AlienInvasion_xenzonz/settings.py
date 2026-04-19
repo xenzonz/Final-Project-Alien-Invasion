@@ -25,8 +25,8 @@ class Settings:
         self.bullet_amount = 5
 
         self.alien_file = Path.cwd() / 'Alieninvasion_xenzonz' / 'Assets' / 'images' / 'enemy_4.png'
-        self.alien_w = 40
-        self.alien_h = 40
+        self.alien_w = 60
+        self.alien_h = 60
         self.fleet_speed = 2
         self.fleet_direction = 1
         self.fleet_drop_speed = 40
