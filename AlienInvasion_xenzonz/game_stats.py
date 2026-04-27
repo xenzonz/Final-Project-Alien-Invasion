@@ -1,41 +1,75 @@
-"""
-Docstring for game_stats.py
-i. Final Project: Alien Invasion
-ii. Sam Cocquyt
-iii. Store and manage game statistics.
+#from pathlib import Path
+import json
 
-    This module defines the GameStats class, which is responsible for holding
-    basic gameplay state values that need to persist while the game is running.
-    At the moment, it tracks how many ships the player has left.
+from typing import TYPE_CHECKING
 
-iv. Starter code: https://github.com/xenzonz/Participation-Activity-Unit-12
-v. 4/19/2026
-"""
-
+if TYPE_CHECKING:
+    from alien_invasion import AlienInvasion
 
 class GameStats():
-    """
-    Store gameplay statistics for the current session.
 
-    The GameStats class is a simple container for values that describe
-    the current progress or status of the game. In its current form,
-    it tracks the number of player ships remaining.
+    def __init__(self, game: 'AlienInvasion'):
+        self.game = game
+        self.settings = game.settings
+        self.max_score = 0
+        self.init_saved_scores()
+        self.reset_stats()
 
-    Attributes:
-        ships_left (int): The number of ships the player has remaining.
-    """
-    def __init__(self, ship_limit):
-        """
-        Initialize the game statistics.
+    def init_saved_scores(self):
+        self.path = self.settings.scores_file
+        if self.path.exists() and self.path.stat.__sizeof__() > 20:
+            contents = self.path.read_text()
+            scores = json.loads(contents)
+            self.hi_score = scores.get('hi_score', 0)
+        else:
+            self.hi_score = 0
+            self.save_scores()
+            #save the file
 
-        This constructor sets the starting number of ships available to
-        the player for the current game session.
+    def save_scores(self):
+        scores = {
+            'hi_score': self.hi_score
+        }
+        contents = json.dumps(scores, indent = 4)
+        try:
+            self.path.write_text(contents)
+        except FileNotFoundError as e:
+            print(f"File Not Found: {e}")
 
-        Args:
-            ship_limit (int): The number of ships the player starts with.
+    def reset_stats(self):
+        self.ships_left = self.settings.starting_ship_count
+        self.score = 0
+        self.level = 1
 
-        Returns:
-            None
-        """
-        self.ships_left = ship_limit
+    def update(self, collisions):
+        #update score
+        self._update_score(collisions)
+        #update max_score
+        self._update_max_score()
+        #update hi_score
+        self._update_hi_score()
+
+
+    def _update_max_score(self):
+        if self.score > self.max_score:
+            self.max_score = self.score
+        #print(f"Max: {self.max_score}")
+
+    def _update_hi_score(self):
+        if self.score > self.hi_score:
+            self.hi_score = self.score
+        #print(f"Hi: {self.hi_score}")
+        
+    def _update_score(self, collisions):
+        for alien in collisions.values():
+            self.score += self.settings.alien_points
+        #print(f"Basic: {self.score}")
+
+    def update_level(self):
+        self.level += 1
+        #print(self.level)
+        
+
+
+
         
