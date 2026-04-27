@@ -34,8 +34,8 @@ class Settings:
         
 
         self.bullet_file = Path.cwd() / 'AlienInvasion_xenzonz' / 'Assets' / 'images' / 'laserBlast.png'
-        self.laser_sound = Path.cwd() / 'AlienInvasion_xenzonz' / 'Assets' / 'sound' / 'laser.mp3'
-        self.impact_sound = Path.cwd() / 'AlienInvasion_xenzonz' / 'Assets' / 'sound' / 'impactSound.mp3'
+        self.laser_sound = Path.cwd() / 'AlienInvasion_xenzonz' / 'Assets' / 'sound' / 'Shoot17.wav'
+        self.impact_sound = Path.cwd() / 'AlienInvasion_xenzonz' / 'Assets' / 'sound' / 'Boom25.wav'
         
         
         
@@ -54,7 +54,7 @@ class Settings:
         self.text_color = (255,255,255)
         self.button_font_size = 48
         self.HUD_font_size = 20
-        self.font_file = Path.cwd() / 'AlienInvasion_xenzonz' / 'Assets' / 'Fonts' / 'Silkscreen' / 'Silkscreen-bold.ttf'
+        self.font_file = Path.cwd() / 'AlienInvasion_xenzonz' / 'Assets' / 'Fonts' / 'Goldman-Bold.ttf'
 
     def initialize_dynamic_settings(self):
         self.ship_speed = 5

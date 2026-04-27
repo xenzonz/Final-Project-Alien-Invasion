@@ -129,9 +129,10 @@ class AlienInvasion:
 
     def _update_screen(self):
         self.screen.blit(self.bg, (0,0))
-        self.ship.draw()
+        
         self.alien_fleet.draw()
         self.HUD.draw()
+        self.ship.draw()
         if not self.game_active:
             self.play_button.draw()
             pygame.mouse.set_visible(True)
